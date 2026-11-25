@@ -1,5 +1,7 @@
 # 瞭望 · Liaowang
 
+[![test](https://github.com/wushiyi105-jpg/liaowang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/liaowang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 [![test](https://github.com/wushiyi105-jpg/liaowang/actions/workflows/test.yml/badge.svg)](https://github.com/wushiyi105-jpg/liaowang/actions/workflows/test.yml)
 
 盯几个技术话题，每次抓一批候选，让模型判断哪几条值得花十分钟看，其余连同过滤理由一起存着。

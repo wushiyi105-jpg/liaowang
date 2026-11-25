@@ -8,7 +8,7 @@
 
 我做的第 9 个东西。上一个（守望）是「页面变了就告诉我」，那个解决的是「别漏」，这个解决的是反过来的问题——抓回来的东西太多，多到你根本不会看。
 
-![demo](assets/demo.gif)
+![示例](assets/demo.gif)
 
 ## 它解决的是筛选，不是抓取
 
@@ -115,7 +115,7 @@ liaowang/
 │   ├── cli.py      命令行
 │   └── web.py      http.server 简报页 + JSON 接口
 ├── tests/          60 个离线单测
-├── scripts/        生成演示 GIF（开发期用，需 Pillow）
+├── scripts/        生成示例 GIF（开发期用，需 Pillow）
 └── assets/demo.gif
 ```
 

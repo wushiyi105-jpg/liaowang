@@ -8,7 +8,7 @@ Watch a few technical topics, fetch a batch of candidates each time, let the mod
 
 The ninth thing I built. The last one (Shouwang) was "tell me when a page changes", which solves "do not miss anything"; this one solves the opposite problem — too much comes back, so much that you never read any of it.
 
-![demo](assets/demo.gif)
+![usage](assets/demo.gif)
 
 ## It solves filtering, not fetching
 
@@ -115,7 +115,7 @@ liaowang/
 │   ├── cli.py      command line
 │   └── web.py      http.server brief page + JSON endpoints
 ├── tests/          60 offline unit tests
-├── scripts/        demo GIF generator (dev only, needs Pillow)
+├── scripts/        usage GIF generator (dev only, needs Pillow)
 └── assets/demo.gif
 ```
 

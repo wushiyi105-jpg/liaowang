@@ -95,7 +95,6 @@ def parse_feed(xml_bytes: bytes, source: str = "rss") -> list[dict]:
     except ET.ParseError as e:
         raise FetchError(f"XML 解析失败: {e}") from e
 
-    ns_atom = "{http://www.w3.org/2005/Atom}"
     items = []
 
     for entry in root.iter():

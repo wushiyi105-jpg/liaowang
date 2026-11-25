@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from liaowang import cli, fetch, scan, store
+from liaowang import cli, fetch, scan
 
 ITEMS = [
     {"key": "gh:infiniflow/ragflow", "title": "infiniflow/ragflow", "url": "https://github.com/infiniflow/ragflow",

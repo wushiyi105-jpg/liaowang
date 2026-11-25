@@ -1,6 +1,6 @@
 # 瞭望 · Liaowang
 
-[![test](https://github.com/wushiyi105-jpg/liaowang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/liaowang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![test](https://github.com/wushiyi105-jpg/liaowang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/liaowang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![codecov](https://codecov.io/gh/wushiyi105-jpg/liaowang/branch/main/graph/badge.svg)](https://codecov.io/gh/wushiyi105-jpg/liaowang)
 
 [![test](https://github.com/wushiyi105-jpg/liaowang/actions/workflows/test.yml/badge.svg)](https://github.com/wushiyi105-jpg/liaowang/actions/workflows/test.yml)
 
@@ -25,6 +25,19 @@
 GitHub 的搜索接口反而稳：公开、返回 JSON、不用登录，而且「某个话题最近冒出来什么」这件事，仓库列表比新闻稿耐看得多——star 数、最近推送时间、语言，全是硬信息。
 
 RSS 也留着了，给愿意自己配源的人。Atom 和 RSS 2.0 两种都认。
+
+## 数据流
+
+一条数据在这几个模块之间怎么走：
+
+```mermaid
+flowchart LR
+    A[GitHub 搜索 / RSS] --> B[fetch.py<br/>抓候选]
+    B --> C[scan.py<br/>去重 · 硬条件过滤]
+    C --> D[llm.py<br/>分批评分]
+    D --> E[brief.py<br/>排序 · 一句话结论]
+    E --> F[store.py → cli.py / web.py]
+```
 
 ## 快速开始
 

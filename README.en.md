@@ -76,6 +76,13 @@ python -m liaowang serve          # http://127.0.0.1:8769
 
 Add watches on the left, click "扫全部", and cards sorted by score appear on the right. Each card has a "过滤掉" button, so when the model gets it wrong you can push it down by hand.
 
+Run in Docker (the container uses the default port 8769):
+
+```bash
+docker build -t liaowang .
+docker run -p 8769:8769 liaowang
+```
+
 ## Command reference
 
 | Command | What it does |
@@ -101,6 +108,46 @@ Add watches on the left, click "扫全部", and cards sorted by score appear on 
 **Two: the score decides, the model's keep does not.** The model produces self-contradictory combinations like "keep=true but only 30 points". The program always goes by the score: under 60 is filtered, whatever it wrote.
 
 **Three: de-duplication by key, not by title.** `gh:owner/name` normalised to lowercase, RSS by the link with punctuation stripped. The same repository found a second time never re-enters the brief.
+
+## 🤔 Why not just ask a general LLM
+
+A general model can tell you "RAG is hot right now". Liaowang adds the three things it cannot:
+
+1. **Filters out ninety percent first** — it fetches candidates, the model scores each and writes one line on why it is worth ten minutes, and the rest are stored with the reason they were dropped. A chat model will not shrink twelve items to six, let alone explain the other six.
+2. **Judgements can be reviewed** — score, reason and link for every candidate are stored, including the filtered ones; if the model judged wrong, the Web "filter out" control pushes it back, and you can audit next week.
+3. **Data stays local** — monitors, candidates and scores live in local SQLite; the repositories are public, but your watch list and judgement history need not leave the machine.
+4. **Structured output** — score, reason and link in cards, and `--json` feeds a weekly brief; a chat reply gives recommendations you cannot sort by score.
+
+## 🎯 Use cases
+
+- **A weekly look at new RAG/agent projects**: `watch add "RAG frameworks" --topic topic:rag --min-stars 500`, scan once, and read six worthwhile items in ten minutes.
+- **Before choosing a library**: see which RAG engines are gaining traction and which merely rebrand, with reasons stating "on topic" versus "keyword coincidence".
+- **Building your own tech radar**: aggregate scans weekly into a list a team can read, instead of a pile of bookmarks.
+
+## 🗺 Roadmap
+
+- **More sources**: add arXiv and Hacker News alongside GitHub, filtered by the same scoring.
+- **Configurable thresholds**: stars, recency and language adjustable in the UI rather than by CLI flags.
+- **Weekly export**: a fixed-format Markdown brief from one week's scans.
+- **Cross-week dedupe**: report a project once even if it appears three weeks running, so the brief is not all familiar faces.
+- **Read markers**: mark items so they stop appearing in "worth reading", keeping attention on what is new.
+
+## ❓ FAQ
+
+**Where do I get an API key?**
+The project ships without one. It defaults to Zhipu (`glm-4.6`); DeepSeek also works. For GitHub fetching, set a `GITHUB_TOKEN` to raise the rate limit — see `.env.example`.
+
+**Where is data stored, and is it uploaded?**
+Monitors, candidates and judgements are in local SQLite; a model call sends candidate titles, descriptions and metadata only.
+
+**Does it work without a key?**
+It fetches, stores and lists candidates but will not filter: everything is presented equally, which defeats the purpose of a brief.
+
+**How do I switch models?**
+Change `LLM_BASE_URL`, `LLM_MODEL` and `LLM_API_KEY`; fetching is unaffected.
+
+**Why was a high-star project filtered out?**
+Because it is off-topic. The reason says "keyword hit only" or "different direction"; disagree and push it back in the Web UI.
 
 ## Layout
 

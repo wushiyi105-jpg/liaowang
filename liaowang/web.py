@@ -15,7 +15,7 @@ from . import brief, llm, scan, store
 PAGE = """<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>瞭望 · 情报简报</title>
+<title>瞭望 · 本周哪几件事值得看</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#0b0f14;color:#c9d1d9;font:15px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
@@ -42,8 +42,74 @@ button:disabled{opacity:.5}
 a{color:#79c0ff;text-decoration:none}
 a:hover{text-decoration:underline}
 .empty{color:#8b949e}
+
+:root{--maxw:1080px;--bg:#f2efe7;--card:#fffdf7;--ink:#171715;--text:#171715;--dim:#6b6860;--line:#d4cec2;--accent:#b13a2e;--muted:#6b6860}
+.wrap{max-width:1080px}
+body{background:#f2efe7;color:#171715;font-family:"Songti SC","SimSun",Georgia,serif}
+h1{color:#171715}
+header{max-width:1080px;margin:0 auto}
+input,textarea,select{background:#fff;color:#171715;border-color:#d4cec2;border-radius:2px}
+button:not(.ghost):not(.tab){background:#b13a2e;color:#fff;border-radius:2px}
+button.ghost{background:transparent!important;color:#b13a2e!important;border:1px solid #d4cec2!important}
+h2,h3{color:#b13a2e}
+pre{background:#fafaf6;color:#171715;border-color:#d4cec2}
+.item,.card{border-color:#d4cec2;background:#fffdf7}
+.k,.empty,.hint{color:#6b6860}
+
+h1{font-size:clamp(31px,5vw,39px);line-height:1.26}
+.prod{display:block;font-size:11px;line-height:1.4;letter-spacing:.18em;font-weight:650;margin-bottom:8px;opacity:.72}
+.lede,.sub{max-width:62ch;line-height:1.75}
+.route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:16px auto 20px;border:1px solid var(--line);background:var(--line);max-width:var(--maxw)}
+.route span{padding:11px 13px;background:var(--card);font-size:12px;line-height:1.5}
+.route b{display:block;font-size:10px;letter-spacing:.1em;margin-bottom:3px;opacity:.66}
+button{min-height:46px}
+input,select{min-height:44px}
+pre{white-space:pre-wrap}
+@media(max-width:680px){
+  .wrap{padding:20px 16px 56px}
+  .route{grid-template-columns:1fr}
+  h1{font-size:30px!important}
+  .row>div{min-width:100%!important}
+  button{width:100%}
+}
+
+body{background:#f2efe7;color:#171715}
+header{display:block!important;max-width:1080px;margin:0 auto;padding:24px 20px 0;background:transparent;border:0}
+header h1{color:#171715;font-size:38px;line-height:1.22;letter-spacing:-.02em}
+header .sub{display:block;color:#6b6860;font-size:14px;margin-top:6px;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:1080px;margin:0 auto;background:#fffdf7;border-left:1px solid #d4cec2;border-right:1px solid #d4cec2;min-height:calc(100vh - 150px)}
+aside{background:#f8f4ea;border-right:1px solid #d4cec2}
+section{background:#fffdf7}
+input,textarea{background:#fff;color:#171715;border-color:#d0c8b9;border-radius:0}
+button{background:#b13a2e;color:#fff;border-radius:0;letter-spacing:.04em}
+button:hover{background:#972f25}
+.item,.card{background:#fff;border-color:#d4cec2;border-radius:0}
+.item{border-top:2px solid #b13a2e}
+h2{color:#b13a2e;font-family:"Songti SC","SimSun",serif}
+.k,.empty{color:#6b6860}
+
+
+/* mobile-32 */
+input[type=text],input[type=number],input[type=email]{background:#fff;color:#171715;border-color:#d4cec2}
+
+@media(max-width:760px){
+  main{grid-template-columns:1fr!important}
+  aside{border-right:0!important;border-bottom:1px solid #d4cec2;width:auto!important}
+  section{padding:16px!important}
+  .row{flex-wrap:wrap!important}
+  .row>div{min-width:100%!important}
+  h1{font-size:30px!important}
+  .route{grid-template-columns:1fr!important}
+  button{min-height:48px}
+  pre{overflow-x:auto}
+}
+
+/* mobile-height */
+@media(max-width:760px){main{min-height:auto!important}aside{min-height:0!important}}
 </style></head><body>
-<header><h1>瞭望</h1><span class="sub">抓一批候选，判断哪几条值得花十分钟看</span></header>
+<header><h1><span class="prod">瞭望</span>本周，哪几件事值得看</h1><p class="lede">给跟进某个开源领域的技术负责人：按主题收集仓库与发布，合并同一事件，每条保留原始来源、发生时间和“为什么值得看”。</p></header>
+  <div class="route" aria-label="任务步骤"><span><b>01</b>定主题和来源</span><span><b>02</b>合并同一事件</span><span><b>03</b>出一期团队简报</span></div>
+
 <main>
 <aside>
   <input id="name" placeholder="监控名字，比如：RAG 框架">
